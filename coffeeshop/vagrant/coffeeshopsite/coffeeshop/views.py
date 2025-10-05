@@ -301,6 +301,7 @@ def contact(request):
     return render(request, 'coffeeshop/error.html', context)
 
 
+# FIXED:
 # This is a very bad search form.  It's only purpose is to illustrate
 # SQL injection vulnerabilities.
 # Don't use it in real applications
@@ -316,15 +317,14 @@ def search(request):
 
     if (search_text is not None and search_text != ''):
         with connection.cursor() as cursor:
-            template = "SELECT id, name, description, unit_price" + \
-                     "    FROM coffeeshop_product" + \
-                     "   WHERE (LOWER(name) like '%{}%'" + \
-                     "          or LOWER(description) like '%{}%') " 
-            sql = template.format(search_text.lower(), search_text.lower())
+            sql = '''SELECT id, name, description, unit_price
+                     FROM coffeeshop_product
+                     WHERE LOWER(name) LIKE %s OR LOWER(description) LIKE %s'''
             log.info("Search: " + sql)
             products = []
             try:
-                cursor.execute(sql)
+                search_term = '%' + search_text.lower().replace('%', '%%') + '%'
+                cursor.execute(sql, [search_term, search_term])
                 for row in cursor.fetchall():
                     (pk, name, description, unit_price) = row
                     product = Product(id=pk, name=name,
