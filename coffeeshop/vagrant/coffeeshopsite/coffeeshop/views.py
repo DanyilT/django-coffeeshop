@@ -512,3 +512,21 @@ class AddressViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
+# Insecure file download - path traversal vulnerability
+# The function takes a file parameter from the URL and attempts to open the 'secrets.txt' file from the '/files' directory.
+def download_file(request):
+    file_name = request.GET.get('file', '')
+    base_directory = '/vagrant/coffeeshopsite/coffeeshop/files/'
+    
+    # Insecure file path construction
+    file_path = os.path.join(base_directory, file_name)
+    
+    try:
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/octet-stream')
+            response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("File not found")

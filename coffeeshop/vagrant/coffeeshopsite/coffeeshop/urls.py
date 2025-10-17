@@ -29,7 +29,7 @@ urlpatterns = [
     path('gallery', views.gallery, name='gallery'),
     path('email_csp_report/', views.email_csp_report, name='email_csp_report'),
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls',
-         namespace='rest_framework')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('download_file/', views.download_file, name='download_file'),
 ]
 
