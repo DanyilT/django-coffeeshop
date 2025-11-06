@@ -59,7 +59,7 @@
                         <button type="submit" class="btn" onClick="document.getElementById('delete_commentId').setAttribute('value','{{ comment.id }}'); document.getElementById('deleteForm').submit()">Delete</button>
                     {% endif %}
                     <br>
-                    {{ comment.comment | safe }}
+                    {{ comment.comment }}
                 </p>
                 <hr />
             {% endfor %}
