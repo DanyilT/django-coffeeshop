@@ -1,48 +1,47 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
+
+# ---- systemctl shim for Docker ----
+if ! command -v systemctl >/dev/null 2>&1; then
+  systemctl() {
+    case "$*" in
+      *"restart apache2"* | *"reload apache2"*)  apachectl -k restart || true ;;
+      *"start apache2"*)      apachectl -k start || true ;;
+      *"restart postgresql"*) pg_lsclusters | awk 'NR>1{print $1,$2}' | while read -r v n; do pg_ctlcluster "$v" "$n" restart || true; done ;;
+      *"start postgresql"*)   pg_lsclusters | awk 'NR>1{print $1,$2}' | while read -r v n; do pg_ctlcluster "$v" "$n" start || true; done ;;
+      *"restart mailcatcher"*) pkill -f mailcatcher || true; mailcatcher --smtp-ip 0.0.0.0 --http-ip 0.0.0.0 || true ;;
+      *"start mailcatcher"* | *"enable mailcatcher"*) mailcatcher --smtp-ip 0.0.0.0 --http-ip 0.0.0.0 || true ;;
+      *) true ;;
+    esac
+  }
+fi
 
 . /secrets/config.env
 
 echo ". /secrets/config.env" >> /home/vagrant/.profile
 echo ". /secrets/config.env" >> /home/vagrant/.bashrc
 
-# Install packages
-apt-get update -y
-apt-get install -y apache2 
-apt-get install -y python3-pip python3.8-venv
-apt-get install -y libapache2-mod-wsgi-py3
-apt-get install -y postgresql postgresql-contrib 
-apt-get install -y ssh telnet lsof
-apt install -y net-tools iputils-ifconfig git
+# Set hostname and fix resolution
+hostname csthirdparty
+echo "127.0.0.1 csthirdparty" >> /etc/hosts
 
-apt install -y nmap ufw netcat
-apt install -y pwgen
-apt install -y libpq-dev
+# Start mailcatcher
+echo "Starting Mailcatcher…"
+systemctl start mailcatcher
 
-# Fix for a problem with pyOpenSSL
-cd /tmp
-apt remove -y python3-pip 
-wget https://bootstrap.pypa.io/get-pip.py
-python3 get-pip.py
-hash -r
+# Install python packages from requirements.txt
+echo "Installing Python requirements…"
+pip3 install --no-cache-dir -r /vagrant/csthirdpartysite/requirements.txt
 
-# set hostname
-hostnamectl set-hostname csthirdparty
-
-# Install mailcatcher
-# Mailcatcher is an implementation of SMTP that stores email locally rather than
-# forwarding it.  You can view and delete the emails via a web local interface.
-apt install -y build-essential libsqlite3-dev ruby-dev
-gem install mailcatcher --no-document
-cp /vagrant/mailcatcher/mailcatcher.service /etc/systemd/system/mailcatcher.service
-chmod 755 /etc/systemd/system/mailcatcher.service
-systemctl enable mailcatcher
-service mailcatcher start
-
-# Install python packages
-sudo pip3 install -r /vagrant/csthirdpartysite/requirements.txt
-sudo pip3 install slowloris
+# ---- Start PostgreSQL cluster if needed ----
+echo "Starting PostgreSQL if needed…"
+if command -v pg_lsclusters >/dev/null 2>&1; then
+  pg_lsclusters | awk 'NR>1{print $1,$2,$4}' | while read -r ver name state; do
+    [ "$state" = "online" ] || pg_ctlcluster "$ver" "$name" start || true
+  done
+fi
 
 # Install apache config
 rm /etc/apache2/apache2.conf
@@ -50,16 +49,33 @@ rm /etc/apache2/envvars
 cp /vagrant/apache2/apache2.conf /etc/apache2/
 cp /vagrant/apache2/envvars /etc/apache2/
 
-# Set up Postgres
-pgvers=12
-mv /etc/postgresql/${pgvers}/main/postgresql.conf /etc/postgresql/${pgvers}/main/postgresql.conf.orig
-mv /etc/postgresql/${pgvers}/main/pg_hba.conf /etc/postgresql/${pgvers}/main/pg_hba.conf.orig
-cp /vagrant/postgres/postgresql.conf /etc/postgresql/${pgvers}/main/postgresql.conf
-cp /vagrant/postgres/pg_hba.conf /etc/postgresql/${pgvers}/main/pg_hba.conf
-chown postgres.postgres /etc/postgresql/${pgvers}/main/postgresql.conf /etc/postgresql/${pgvers}/main/pg_hba.conf
-chown postgres.postgres /etc/postgresql/${pgvers}/main/pg_hba.conf
-chmod 640 /etc/postgresql/${pgvers}/main/pg_hba.conf
-service postgresql restart
+# Set up Postgres - dynamically detect version
+echo "Configuring PostgreSQL…"
+if command -v pg_lsclusters >/dev/null 2>&1; then
+  pgvers=$(pg_lsclusters -h | awk '{print $1}' | head -1)
+  echo "Detected PostgreSQL version: $pgvers"
+
+  if [ -n "$pgvers" ] && [ -d "/etc/postgresql/${pgvers}/main" ]; then
+    mv /etc/postgresql/${pgvers}/main/postgresql.conf /etc/postgresql/${pgvers}/main/postgresql.conf.orig 2>/dev/null || true
+    mv /etc/postgresql/${pgvers}/main/pg_hba.conf /etc/postgresql/${pgvers}/main/pg_hba.conf.orig 2>/dev/null || true
+
+    # Copy config files
+    cp /vagrant/postgres/postgresql.conf /etc/postgresql/${pgvers}/main/postgresql.conf
+    cp /vagrant/postgres/pg_hba.conf /etc/postgresql/${pgvers}/main/pg_hba.conf
+
+    # Fix version-specific paths in postgresql.conf (replace 12 with actual version)
+    sed -i "s|/postgresql/12/|/postgresql/${pgvers}/|g" /etc/postgresql/${pgvers}/main/postgresql.conf
+    sed -i "s|/12-main\.pid|/${pgvers}-main.pid|g" /etc/postgresql/${pgvers}/main/postgresql.conf
+
+    chown postgres.postgres /etc/postgresql/${pgvers}/main/postgresql.conf /etc/postgresql/${pgvers}/main/pg_hba.conf
+    chmod 640 /etc/postgresql/${pgvers}/main/pg_hba.conf
+    systemctl restart postgresql
+  else
+    echo "Warning: PostgreSQL version directory not found"
+  fi
+else
+  echo "Warning: pg_lsclusters not found"
+fi
 
 # Install csthirdparty web app
 ln -fs /vagrant/csthirdpartysite /var/www/

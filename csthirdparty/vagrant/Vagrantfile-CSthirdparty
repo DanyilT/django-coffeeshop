@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Base box and provisioning (keep as you had)
+  config.vm.box = "ubuntu/focal64"
+  config.vm.synced_folder "../secrets/", "/secrets"
+  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision "shell", inline: "sudo apt install swapspace -y"
+  config.vm.provision "shell", run: "always", path: "reboot-provision.sh"
+
+  # Use localhost ports instead of a fixed private IP
+  # config.vm.network "private_network", ip: "10.50.0.2"
+
+  # === Localhost access for ALL providers ===
+  # App: host 8080 -> guest 8100
+  config.vm.network "forwarded_port", guest: 8100, host: 8080, auto_correct: true, host_ip: "0.0.0.0"
+  # MailCatcher: host 1080 -> guest 1080
+  config.vm.network "forwarded_port", guest: 1080, host: 1080, auto_correct: true, host_ip: "0.0.0.0"
+
+  # --- Docker provider (make Docker behave the same as VB) ---
+  config.vm.provider "docker" do |docker|
+    # If the original file had these image/settings, keep them:
+    docker.image = "mbakereth/vagrant-provider-ubuntu:focal"
+    docker.create_args = ['--memory=4g']
+    docker.create_args = ['--cpuset-cpus=2']
+
+    docker.remains_running = true
+    docker.has_ssh = true
+    docker.privileged = true
+    docker.volumes = ["/sys/fs/cgroup:/sys/fs/cgroup:rw"]
+    docker.create_args = ["--cgroupns=host"]
+    # Publish the same ports as the VB forwarded ports
+    docker.ports = ["8080:8100", "1080:1080"]
+    # To force arm64 testing:
+    # docker.create_args = ['--platform=linux/arm64']
+  end
+end
