@@ -8,6 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from django.urls import reverse
 from django.http import Http404
 from django.core.mail import send_mail
@@ -381,7 +382,7 @@ def delcomment(request):
 
 @login_required
 @require_http_methods(["GET", "POST"])
-@csrf_exempt  # this is a bad idea - it is to demonstrate a vulnerability only
+@csrf_protect   # To protect against CSRF attacks
 def changeemail(request):
     log = logging.getLogger('django')
     cart_size = get_cart_size(request.user)
