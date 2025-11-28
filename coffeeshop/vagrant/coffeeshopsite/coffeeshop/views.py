@@ -351,8 +351,7 @@ def addcomment(request):
                               datetime=datetime.now(),
                               comment=comment_text)
             comment.save()
-            next_url = "/product/" + str(product_id)
-            return redirect(next_url)
+            return redirect(reverse('product', kwargs={'id': product_id}))  # Fixing Medium level vulnerability
         return HttpResponse(status=401)
 
 
@@ -369,7 +368,6 @@ def delcomment(request):
     try:
         comment = Comment.objects.get(pk=id)
         product_id = comment.product_id
-        next_url = "/product/" + str(product_id)
     except Exception as e:
         log.error(e)
         raise Http404
@@ -377,7 +375,7 @@ def delcomment(request):
         comment.delete()
     else:
         raise Http404
-    return redirect(next_url)
+    return redirect(reverse('product', kwargs={'id': product_id}))  # Fixing Medium level vulnerability
 
 
 @login_required

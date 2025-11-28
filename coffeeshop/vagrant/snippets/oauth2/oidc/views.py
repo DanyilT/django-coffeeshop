@@ -22,6 +22,7 @@ import pathlib
 import os
 import json
 import xml.etree.ElementTree as ET
+import re
 
 import coffeeshopsite.settings
 from .models import *
@@ -269,10 +270,17 @@ def contact(request):
     if ('message' not in request.POST or len(request.POST['message']) == 0):
         error_msg = 'No message given.'
     if (error_msg == ''):
-        body = request.POST['message']
-        cmd = ' printf "From: ' + request.user.email + '\nSubject: CoffeeShop User Contact\n\n' + body + '" | ssmtp contact@coffeeshop.com'
-        print(cmd)
-        os.system(cmd)
+        # Sanitize and safely send email without invoking a shell command
+        raw_body = request.POST['message']
+        # Allow common punctuation, limit length to prevent abuse
+        safe_body = re.sub(r'[^\w\s\.,!?@\-]', '', raw_body)[:2000]
+        send_mail(
+            'CoffeeShop User Contact',
+            safe_body,
+            request.user.email,
+            ['contact@coffeeshop.com'],
+            fail_silently=False,
+        )   # Fixing
         context = {'cart_size': cart_size}
         return render(request, 'coffeeshop/emailsent.html', context)
 
@@ -292,19 +300,16 @@ def search(request):
     if (error_msg == ''):
         search_text = request.POST['search']
         with connection.cursor() as cursor:
-            sql = '''SELECT id, name, description, unit_price 
-                       FROM coffeeshop_product
-                      WHERE (LOWER(name) like '%{}%' or LOWER(description) like '%{}%')
-                  '''.format(search_text.lower(), search_text.lower())
-            print(sql)
+            sql = '''SELECT id, name, description, unit_price FROM coffeeshop_product WHERE (LOWER(name) LIKE %s OR LOWER(description) LIKE %s)'''
             products = []
             try:
-                cursor.execute(sql)
+                # Escape any % characters in user input to avoid unintended wildcards
+                search_term = '%' + search_text.lower().replace('%', '%%') + '%'
+                cursor.execute(sql, [search_term, search_term])
                 for row in cursor.fetchall():
                     (pk, name, description, unit_price) = row
-                    product = Product(id=pk, name=name, description=description, 
-                        unit_price=unit_price)
-                    products.append(product)
+                    product = Product(id=pk, name=name, description=description, unit_price=unit_price)
+                    products.append(product)  # Fixing High level vulnerability
             except Exception as e:
                 print(e)
     context = {"products": products, "cart_size": cart_size, "header": 'Search'}

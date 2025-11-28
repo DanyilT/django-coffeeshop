@@ -1,0 +1,254 @@
+
+Testing ./ ...
+
+Open Issues
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 4a3f38f9-f455-4a9e-a684-421b5ae1c3ff
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 430
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 8b6ebad7-138f-4954-9f44-96bd1880b555
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 362
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 6ef1d6bc-37b0-43b1-9acc-02b2d4b0f1c8
+   Path: other/jpgjs/jpgjs.py, line 76
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 34d65d3f-c217-404d-8704-bafe1c3ebd33
+   Path: coffeeshop/vagrant/coffeeshopsite/coffeeshop/views.py, line 310
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: fa1d5112-9fd5-4d36-8c27-c4789b8fb869
+   Path: coffeeshop/vagrant/coffeeshopsite/coffeeshop/views.py, line 424
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 9046f0c9-9871-48ed-9c7f-071c9db58a82
+   Path: coffeeshop/vagrant/coffeeshopsite/coffeeshop/views.py, line 440
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 592f8446-14b7-49da-a177-2a8b53e21982
+   Path: coffeeshop/vagrant/coffeeshopsite/coffeeshop/views.py, line 465
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: a901bf70-ca09-48a6-9c84-b343b5f0b922
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 357
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: e772340a-8580-496f-b78e-d67aab382983
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 398
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: a6e7c4f5-b8b4-4bc9-8544-b8239f332608
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 409
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 03669d6c-6805-4d7e-a89c-53edc2ea31a5
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 431
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 76d79178-1a27-4363-842a-c2b7d93e4fe3
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 375
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: ea385573-5fa3-48aa-82cf-aefb0a96c4fa
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 417
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 38ec2ddd-80dc-4952-b34b-3d990e48b24a
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 433
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: d18ce758-b361-4529-aa52-cf9dfa161610
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 457
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 939b86db-c2ca-4f8e-81f3-39b580f0e4e0
+   Path: csthirdparty/vagrant/csthirdpartysite/csthirdparty/views.py, line 29
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: f1f0a84e-fe23-433c-905e-6c5fad8ae5d5
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 403
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 94e92afe-97ab-4c31-a2cd-9224a61a91ba
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 414
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 7578726e-cd77-4d2c-a00e-10162c7ac19c
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 436
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: f15601b9-e264-4ef6-8967-109ed7140a82
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 356
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: ee535746-31c0-4dd8-bf28-2aa3b7fc9f60
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 397
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: c2f6b9f8-1a64-4cab-b55e-c97d4e8d8e77
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 408
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 7c86558d-ddcc-4033-b6a0-f9b34c403096
+   Path: other/jpgjs/jpgjs.py, line 51
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 50c09f4e-3202-4b48-9cd5-e39c6290c001
+   Path: other/jpgjs/jpgjs.py, line 47
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 521894bb-d984-4aa3-99a2-c5bb39ee7994
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 357
+   Info: Unsanitized input from a database flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 2a357628-2f54-4c68-bc95-ba16da619574
+   Path: csthirdparty/vagrant/csthirdpartysite/csthirdparty/views.py, line 78
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 0cdbd483-005f-401b-afe0-760dad7ac3bb
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 351
+   Info: Unsanitized input from a database flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: 80e3cc1c-c49d-448f-93df-3f07ddefa6fb
+   Path: coffeeshop/vagrant/coffeeshopsite/coffeeshop/views.py, line 466
+   Info: xml.etree.ElementTree.fromstring is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: 989b890e-a9e1-4c5c-9c61-8456dd04951a
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 432
+   Info: xml.etree.ElementTree.fromstring is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: 54ab31ba-ea21-4ad8-bced-301749ab946a
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 458
+   Info: xml.etree.ElementTree.fromstring is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: e9496621-8eac-4bfe-a41e-3bb17b03956c
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 437
+   Info: xml.etree.ElementTree.fromstring is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: e6e5a4fa-6ffb-4efd-9b0c-b7f64a1c9e0c
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 431
+   Info: xml.etree.ElementTree.fromstring is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 6b50dc06-9b2a-40a0-8e07-15fbf6f77d08
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 328
+   Info: Unsanitized input from a web form flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: ec431297-927e-48d6-9b3d-20764c697eeb
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 346
+   Info: Unsanitized input from a web form flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 105ce58b-3fb5-4a02-9ce5-228a7d66da26
+   Path: coffeeshop/vagrant/snippets/oauth2/oidc/views.py, line 333
+   Info: Unsanitized input from a web form flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: cc2f1c81-0a38-4aaa-81a5-86ead8961cbf
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 327
+   Info: Unsanitized input from a web form flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: e21eec98-0a9f-441a-8846-69ed9f0fc131
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 352
+   Info: Unsanitized input from a database flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 65eb0996-4ad2-4869-8da8-149e07bbf954
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 369
+   Info: Unsanitized input from a database flows into django.shortcuts.redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cross-Site Request Forgery (CSRF)
+   Finding ID: 540e1204-d969-457c-8cc7-32ca250eb572
+   Path: csthirdparty/vagrant/csthirdpartysite/csthirdparty/views.py, line 39
+   Info: CSRF protection is disabled by django.views.decorators.csrf.csrf_exempt. This allows the attackers to execute requests on a user's behalf.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 1473cb18-71b1-461d-a4c4-a4a9fce40627
+   Path: csthirdparty/vagrant/snippets/oauth_client/settings.py, line 212
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: 98668576-14f0-4340-b3e0-e68e809a305f
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 275
+   Info: Unsanitized input from an HTTP parameter flows into os.system, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: 3bd07797-d724-4cb5-88e2-8e315f556252
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 290
+   Info: Unsanitized input from an HTTP parameter flows into os.system, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: 761d5418-7610-473c-a35e-236afb354bcc
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 274
+   Info: Unsanitized input from an HTTP parameter flows into os.system, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] SQL Injection
+   Finding ID: afb20c1b-4141-40da-b81e-9f26caf14f9c
+   Path: coffeeshop/vagrant/snippets/apikeys/coffeeshop/views.py, line 302
+   Info: Unsanitized input from an HTTP parameter flows into execute, where it is used in an SQL query. This may result in an SQL Injection vulnerability.
+
+ ✗ [HIGH] SQL Injection
+   Finding ID: fc8ca92f-566a-4737-9615-71914192f9f7
+   Path: coffeeshop/vagrant/snippets/oauth2/auth_code/views.py, line 319
+   Info: Unsanitized input from an HTTP parameter flows into execute, where it is used in an SQL query. This may result in an SQL Injection vulnerability.
+
+ ✗ [HIGH] SQL Injection
+   Finding ID: 8c9422d6-2d5b-41b9-bef7-8febe2d5319a
+   Path: coffeeshop/vagrant/snippets/roles/views.py, line 301
+   Info: Unsanitized input from an HTTP parameter flows into execute, where it is used in an SQL query. This may result in an SQL Injection vulnerability.
+
+
+
+╭──────────────────────────────────────────────────────╮
+│ Test Summary                                         │
+│                                                      │
+│   Organization:      danyilt                         │
+│   Test type:         Static code analysis            │
+│   Project path:      ./                              │
+│                                                      │
+│   Total issues:   46                                 │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]      │
+│   Open issues:    46 [ 7 HIGH  39 MEDIUM  0 LOW ]    │
+╰──────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+

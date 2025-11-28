@@ -184,7 +184,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
-SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True  # Fixing Low level vulnerability
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SECURE = False
 
